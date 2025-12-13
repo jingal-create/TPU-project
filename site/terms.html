@@ -1,54 +1,130 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TPU Project — Условия</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TPU Project — Условия</title>
+  <style>
+    :root {
+      --bg: #0e1117;
+      --bg-soft: #161b22;
+      --text: #e6edf3;
+      --text-soft: #9da7b3;
+      --accent: #4da3ff;
+      --border: #262c36;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+
+    header { background: var(--bg-soft); border-bottom: 1px solid var(--border); position: relative; z-index: 5; }
+    header .nav { max-width: 1100px; margin: auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    header h1 { font-size: 20px; font-weight: 600; color: var(--accent); }
+
+    nav { display: flex; gap: 8px; align-items: center; width: 100%; max-width: 440px; background: var(--bg); padding: 6px; border-radius: 14px; border: 1px solid var(--border); }
+    nav a { flex: 1; text-align: center; padding: 8px 10px; border-radius: 10px; font-size: 14px; text-decoration: none; color: var(--text-soft); position: relative; transition: background .25s ease, color .25s ease, transform .2s ease; }
+    body.ru nav a { font-size: 13px; }
+    nav a:hover { background: var(--bg-soft); color: var(--text); transform: translateY(-1px); }
+    nav a.active { background: var(--accent); color: #fff; }
+
+    main { flex: 1; display: flex; justify-content: center; padding: 40px 20px; position: relative; z-index: 3; }
+    .container { max-width: 900px; width: 100%; display: grid; gap: 26px; animation: fade .6s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-block { position: relative; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 18px; padding: 32px; box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+    h2 { font-size: 26px; margin-bottom: 10px; }
+    h3 { font-size: 20px; margin-bottom: 8px; }
+    p, li { color: var(--text-soft); line-height: 1.6; }
+    ul { padding-left: 20px; }
+
+    .lang-switch { position: absolute; top: 16px; right: 16px; padding: 6px 14px; font-size: 12px; border-radius: 12px; background: var(--bg); color: var(--text); border: 1px solid var(--border); cursor: pointer; transition: transform .25s ease, box-shadow .25s ease, color .25s ease; z-index: 2; }
+    .lang-switch:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.45); color: var(--accent); }
+
+    .lang { display: none; }
+    .lang.active { display: block; }
+
+    footer { border-top: 1px solid var(--border); background: var(--bg-soft); text-align: center; padding: 14px 10px; font-size: 12px; color: var(--text-soft); position: relative; z-index: 5; }
+
+    @media (max-width: 720px) {
+      main { padding: 32px 18px; }
+      .container { gap: 22px; }
+      .section-block { padding: 26px; }
+      h2 { font-size: 22px; }
+      h3 { font-size: 18px; }
+      nav a { font-size: 12px; padding: 8px 6px; }
+    }
+  </style>
 </head>
-<body>
+<body class="ru">
+<div class="snow" id="snow"></div>
+
 <header>
-  <h1>TPU Project</h1>
-  <nav>
-    <a href="index.html">Главная</a>
-    <a href="privacy.html">Политика</a>
-    <a href="terms.html">Условия</a>
-    <button id="langBtn">RU / EN</button>
-  </nav>
+  <div class="nav">
+    <h1>TPU Project</h1>
+    <nav>
+      <a href="index.html" data-ru="Главная" data-en="Home">Главная</a>
+      <a href="privacy.html" data-ru="Политика" data-en="Privacy">Политика</a>
+      <a href="terms.html" class="active" data-ru="Условия" data-en="Terms">Условия</a>
+    </nav>
+  </div>
 </header>
 
-<main class="container fade">
-  <!-- Русская версия -->
-  <section class="lang lang-ru">
-    <div class="section-block">
-      <h2>Условия обслуживания</h2>
-      <p>Используя боты TPU Project, вы соглашаетесь соблюдать следующие правила:</p>
-      <ul>
-        <li>Соблюдение правил Discord</li>
-        <li>Запрет злоупотребления функциями бота</li>
-        <li>Запрет незаконных действий и распространения запрещенного контента</li>
-        <li>Соблюдение конфиденциальности других пользователей</li>
-      </ul>
-      <p>Нарушение условий может привести к блокировке доступа к ботам.</p>
-    </div>
-  </section>
+<main>
+  <div class="container">
+    <section class="lang lang-ru active">
+      <div class="section-block">
+        <button class="lang-switch" id="langBtn">RU / EN</button>
+        <h2>Условия обслуживания</h2>
+        <p>Используя боты TPU Project, вы соглашаетесь соблюдать следующие правила:</p>
+        <ul>
+          <li>Соблюдение правил Discord</li>
+          <li>Запрет злоупотребления функциями бота</li>
+          <li>Запрет незаконных действий и распространения запрещенного контента</li>
+          <li>Соблюдение конфиденциальности других пользователей</li>
+        </ul>
+        <p>Нарушение условий может привести к блокировке доступа к ботам.</p>
+      </div>
+    </section>
 
-  <!-- Английская версия -->
-  <section class="lang lang-en hidden">
-    <div class="section-block">
-      <h2>Terms of Service</h2>
-      <p>By using TPU Project bots, you agree to follow these rules:</p>
-      <ul>
-        <li>Follow Discord rules</li>
-        <li>No abuse of bot features</li>
-        <li>No illegal activity or sharing prohibited content</li>
-        <li>Respect user privacy</li>
-      </ul>
-      <p>Violating these terms may result in access restrictions.</p>
-    </div>
-  </section>
+    <section class="lang lang-en">
+      <div class="section-block">
+        <button class="lang-switch" id="langBtn2">RU / EN</button>
+        <h2>Terms of Service</h2>
+        <p>By using TPU Project bots, you agree to follow these rules:</p>
+        <ul>
+          <li>Follow Discord rules</li>
+          <li>No abuse of bot features</li>
+          <li>No illegal activity or sharing prohibited content</li>
+          <li>Respect user privacy</li>
+        </ul>
+        <p>Violating these terms may result in access restrictions.</p>
+      </div>
+    </section>
+
+  </div>
 </main>
 
-<script src="script.js"></script>
+<footer>TPU project 2024–2025©</footer>
+
+<script>
+const snow = document.getElementById('snow');
+for (let i=0;i<60;i++){const s=document.createElement('span');s.style.left=Math.random()*100+'vw';s.style.animationDuration=10+Math.random()*14+'s';s.style.animationDelay=Math.random()*10+'s';snow.appendChild(s);}
+
+const btn1=document.getElementById('langBtn');
+const btn2=document.getElementById('langBtn2');
+const ru=document.querySelector('.lang-ru');
+const en=document.querySelector('.lang-en');
+const navLinks=document.querySelectorAll('nav a');
+
+function toggleLang(){
+  ru.classList.toggle('active');
+  en.classList.toggle('active');
+  document.body.classList.toggle('ru');
+  navLinks.forEach(link=>{link.textContent=ru.classList.contains('active')?link.dataset.ru:link.dataset.en;});
+}
+
+btn1.onclick=toggleLang;
+btn2.onclick=toggleLang;
+</script>
 </body>
 </html>
