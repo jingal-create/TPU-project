@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TPU Project — Условия</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -15,24 +16,39 @@
     <button id="langBtn">RU / EN</button>
   </nav>
 </header>
+
 <main class="container fade">
-<section class="lang lang-ru">
-<h2>Условия обслуживания</h2>
-<ul>
-<li>Соблюдение правил Discord</li>
-<li>Запрет злоупотребления</li>
-<li>Запрет незаконных действий</li>
-</ul>
-</section>
-<section class="lang lang-en hidden">
-<h2>Terms of Service</h2>
-<ul>
-<li>Follow Discord rules</li>
-<li>No abuse</li>
-<li>No illegal activity</li>
-</ul>
-</section>
+  <!-- Русская версия -->
+  <section class="lang lang-ru">
+    <div class="section-block">
+      <h2>Условия обслуживания</h2>
+      <p>Используя боты TPU Project, вы соглашаетесь соблюдать следующие правила:</p>
+      <ul>
+        <li>Соблюдение правил Discord</li>
+        <li>Запрет злоупотребления функциями бота</li>
+        <li>Запрет незаконных действий и распространения запрещенного контента</li>
+        <li>Соблюдение конфиденциальности других пользователей</li>
+      </ul>
+      <p>Нарушение условий может привести к блокировке доступа к ботам.</p>
+    </div>
+  </section>
+
+  <!-- Английская версия -->
+  <section class="lang lang-en hidden">
+    <div class="section-block">
+      <h2>Terms of Service</h2>
+      <p>By using TPU Project bots, you agree to follow these rules:</p>
+      <ul>
+        <li>Follow Discord rules</li>
+        <li>No abuse of bot features</li>
+        <li>No illegal activity or sharing prohibited content</li>
+        <li>Respect user privacy</li>
+      </ul>
+      <p>Violating these terms may result in access restrictions.</p>
+    </div>
+  </section>
 </main>
+
 <script src="script.js"></script>
 </body>
 </html>
