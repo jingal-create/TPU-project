@@ -1,13 +1,72 @@
-<style>
-body{margin:0;font-family:Arial;background:#0f111a;color:#fff}
-header{background:#1b1d2a;padding:15px;border-bottom:2px solid #5865f2;position:sticky;top:0}
-nav{display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap}
-nav a{color:#7289da;text-decoration:none;font-weight:bold}
-nav a:hover{color:#fff}
-button{background:#2c2f45;border:1px solid #5865f2;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer}
-button:hover{background:#5865f2;box-shadow:0 0 8px #5865f2}
-.container{max-width:900px;margin:40px auto;padding:20px}
-.hidden{display:none}
-.fade{animation:fadeIn .8s}
-@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1}}
-</style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #222;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s;
+}
+
+header h1 { margin: 0; }
+
+nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+nav a, nav button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  font-size: 1rem;
+}
+
+nav button:hover, nav a:hover { text-decoration: underline; }
+
+main.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.hidden { display: none; }
+.fade { opacity: 1; transition: opacity 0.5s; }
+
+.section-block {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+.section-block h3 { margin-top: 0; }
+.section-block a { color: #007bff; text-decoration: none; }
+.section-block a:hover { text-decoration: underline; }
+
+body.dark {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+body.dark header { background-color: #1f1f1f; }
+body.dark .section-block { background-color: #1e1e1e; }
+body.dark .section-block a { color: #66aaff; }
+
+@media (max-width: 600px) {
+  nav { flex-direction: column; align-items: center; }
+  main.container { margin: 1rem; }
+}
