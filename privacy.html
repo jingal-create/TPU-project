@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TPU Project — Политика</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -15,26 +16,37 @@
     <button id="langBtn">RU / EN</button>
   </nav>
 </header>
+
 <main class="container fade">
-<section class="lang lang-ru">
-<h2>Политика конфиденциальности</h2>
-<p>Мы собираем минимальные данные для работы ботов TPU Project.</p>
-<ul>
-<li>ID пользователей и серверов</li>
-<li>Сообщения команд</li>
-</ul>
-<p>Данные не передаются третьим лицам.</p>
-</section>
-<section class="lang lang-en hidden">
-<h2>Privacy Policy</h2>
-<p>We collect minimal data required for TPU Project bots.</p>
-<ul>
-<li>User and server IDs</li>
-<li>Command messages</li>
-</ul>
-<p>No data is shared with third parties.</p>
-</section>
+  <!-- Русская версия -->
+  <section class="lang lang-ru">
+    <div class="section-block">
+      <h2>Политика конфиденциальности</h2>
+      <p>Мы собираем минимальные данные для работы ботов TPU Project. Это позволяет обеспечивать корректную работу функций и персонализацию взаимодействия.</p>
+      <ul>
+        <li>ID пользователей и серверов</li>
+        <li>Сообщения команд</li>
+        <li>Основные статистические данные об использовании бота</li>
+      </ul>
+      <p>Данные не передаются третьим лицам. Мы используем их исключительно для улучшения работы проекта и безопасности пользователей.</p>
+    </div>
+  </section>
+
+  <!-- Английская версия -->
+  <section class="lang lang-en hidden">
+    <div class="section-block">
+      <h2>Privacy Policy</h2>
+      <p>We collect minimal data required for TPU Project bots to ensure proper functionality and personalized interaction.</p>
+      <ul>
+        <li>User and server IDs</li>
+        <li>Command messages</li>
+        <li>Basic usage statistics</li>
+      </ul>
+      <p>No data is shared with third parties. We use it solely to improve project performance and ensure user safety.</p>
+    </div>
+  </section>
 </main>
+
 <script src="script.js"></script>
 </body>
 </html>
