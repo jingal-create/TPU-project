@@ -1,18 +1,16 @@
-<script>
-const LANG_KEY = 'tpu_lang';
-function applyLang(lang){
-  document.querySelectorAll('.lang-ru').forEach(e=>e.classList.toggle('hidden', lang==='en'));
-  document.querySelectorAll('.lang-en').forEach(e=>e.classList.toggle('hidden', lang==='ru'));
-}
-function toggleLang(){
-  const current = localStorage.getItem(LANG_KEY) || 'ru';
-  const next = current === 'ru' ? 'en' : 'ru';
-  localStorage.setItem(LANG_KEY, next);
-  applyLang(next);
-}
-document.addEventListener('DOMContentLoaded', ()=>{
-  const lang = localStorage.getItem(LANG_KEY) || 'ru';
-  applyLang(lang);
-  document.querySelectorAll('#langBtn').forEach(b=>b.onclick=toggleLang);
+// Переключение языка
+const langBtn = document.getElementById('langBtn');
+const ruSections = document.querySelectorAll('.lang-ru');
+const enSections = document.querySelectorAll('.lang-en');
+
+langBtn.addEventListener('click', () => {
+  ruSections.forEach(sec => sec.classList.toggle('hidden'));
+  enSections.forEach(sec => sec.classList.toggle('hidden'));
 });
-</script>
+
+// Переключение темы
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  themeBtn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
+});
