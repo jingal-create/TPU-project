@@ -12,7 +12,6 @@
       --text: #e6edf3;
       --text-soft: #9da7b3;
       --accent: #4da3ff;
-      --accent-hover: #1f6feb;
       --border: #262c36;
     }
 
@@ -31,7 +30,7 @@
       flex-direction: column;
     }
 
-    /* ===== Header / Nav ===== */
+    /* ===== Header ===== */
     header {
       background: var(--bg-soft);
       border-bottom: 1px solid var(--border);
@@ -55,27 +54,24 @@
     nav {
       display: flex;
       gap: 10px;
-      align-items: center;
     }
 
-    nav a,
-    nav button {
+    /* EN default size */
+    nav a {
       padding: 8px 14px;
       border-radius: 10px;
       font-size: 14px;
       text-decoration: none;
       color: var(--text);
-      background: transparent;
-      border: 1px solid transparent;
-      cursor: pointer;
       transition: 0.2s ease;
     }
 
-    nav a:hover,
-    nav button:hover {
-      background: var(--bg);
-      border-color: var(--border);
+    /* RU slightly smaller */
+    body.ru nav a {
+      font-size: 13px;
     }
+
+    nav a:hover { background: var(--bg); }
 
     nav a.active {
       background: var(--accent);
@@ -93,6 +89,15 @@
     .container {
       max-width: 800px;
       width: 100%;
+    }
+
+    .section-block {
+      position: relative;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       animation: fade 0.4s ease;
     }
 
@@ -101,12 +106,24 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .section-block {
-      background: var(--bg-soft);
+    /* ===== Language switch ===== */
+    .lang-switch {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 10;
+      padding: 6px 12px;
+      font-size: 12px;
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+
+    .lang-switch:hover {
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     h2 {
@@ -125,9 +142,7 @@
       color: var(--text-soft);
     }
 
-    li { margin-bottom: 6px; }
-
-    /* ===== Language ===== */
+    /* ===== Language content ===== */
     .lang { display: none; }
     .lang.active { display: block; }
 
@@ -142,26 +157,27 @@
     }
   </style>
 </head>
-<body>
+<body class="ru">
 
 <header>
   <div class="nav">
     <h1>TPU Project</h1>
     <nav>
-      <a href="index.html">Главная</a>
-      <a href="privacy.html" class="active">Политика</a>
-      <a href="terms.html">Условия</a>
-      <button id="langBtn">RU / EN</button>
+      <a href="index.html" data-ru="Главная" data-en="Home">Главная</a>
+      <a href="privacy.html" class="active" data-ru="Политика" data-en="Privacy">Политика</a>
+      <a href="terms.html" data-ru="Условия" data-en="Terms">Условия</a>
     </nav>
   </div>
 </header>
 
 <main>
   <div class="container">
+    <div class="section-block">
 
-    <!-- RU -->
-    <section class="lang lang-ru active">
-      <div class="section-block">
+      <button class="lang-switch" id="langBtn">RU / EN</button>
+
+      <!-- RU -->
+      <section class="lang lang-ru active">
         <h2>Политика конфиденциальности</h2>
         <p>Мы собираем минимальные данные для корректной работы ботов TPU Project и улучшения взаимодействия с пользователями.</p>
         <ul>
@@ -170,12 +186,10 @@
           <li>Базовую статистику использования</li>
         </ul>
         <p>Данные не передаются третьим лицам и используются исключительно в целях безопасности и развития проекта.</p>
-      </div>
-    </section>
+      </section>
 
-    <!-- EN -->
-    <section class="lang lang-en">
-      <div class="section-block">
+      <!-- EN -->
+      <section class="lang lang-en">
         <h2>Privacy Policy</h2>
         <p>We collect only the minimum data required for proper operation of TPU Project bots.</p>
         <ul>
@@ -184,9 +198,9 @@
           <li>Basic usage statistics</li>
         </ul>
         <p>No data is shared with third parties. All information is used solely to improve functionality and security.</p>
-      </div>
-    </section>
+      </section>
 
+    </div>
   </div>
 </main>
 
@@ -198,12 +212,24 @@
   const btn = document.getElementById('langBtn');
   const ru = document.querySelector('.lang-ru');
   const en = document.querySelector('.lang-en');
+  const navLinks = document.querySelectorAll('nav a');
+
+  let isRu = true;
 
   btn.onclick = () => {
+    isRu = !isRu;
+
+    document.body.classList.toggle('ru', isRu);
+
     ru.classList.toggle('active');
     en.classList.toggle('active');
+
+    navLinks.forEach(link => {
+      link.textContent = isRu ? link.dataset.ru : link.dataset.en;
+    });
   };
 </script>
 
 </body>
-  </html>
+        </html>
+        
