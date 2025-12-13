@@ -1,60 +1,159 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TPU Project</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TPU Project</title>
+  <style>
+    :root {
+      --bg: #0e1117;
+      --bg-soft: #161b22;
+      --text: #e6edf3;
+      --text-soft: #9da7b3;
+      --accent: #4da3ff;
+      --border: #262c36;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+
+    /* Snow */
+    .snow { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+    .snow span { position: absolute; top: -10px; width: 3px; height: 3px; background: rgba(255,255,255,0.6); border-radius: 50%; animation: snow linear infinite; opacity: 0; }
+    @keyframes snow { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: .6; } 100% { transform: translateY(110vh); opacity: 0; } }
+
+    header { background: var(--bg-soft); border-bottom: 1px solid var(--border); position: relative; z-index: 5; }
+    header .nav { max-width: 1100px; margin: auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    header h1 { font-size: 20px; font-weight: 600; color: var(--accent); }
+
+    nav { display: flex; gap: 8px; align-items: center; width: 100%; max-width: 440px; background: var(--bg); padding: 6px; border-radius: 14px; border: 1px solid var(--border); }
+    nav a { flex: 1; text-align: center; padding: 8px 10px; border-radius: 10px; font-size: 14px; text-decoration: none; color: var(--text-soft); position: relative; transition: background .25s ease, color .25s ease, transform .2s ease; }
+    body.ru nav a { font-size: 13px; }
+    nav a:hover { background: var(--bg-soft); color: var(--text); transform: translateY(-1px); }
+    nav a.active { background: var(--accent); color: #fff; }
+
+    main { flex: 1; display: flex; justify-content: center; padding: 40px 20px; position: relative; z-index: 3; }
+    .container { max-width: 900px; width: 100%; display: grid; gap: 26px; animation: fade .6s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-block { position: relative; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 18px; padding: 32px; box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+    h2 { font-size: 26px; margin-bottom: 10px; }
+    h3 { font-size: 20px; margin-bottom: 8px; }
+    p { color: var(--text-soft); line-height: 1.6; }
+
+    .lang-switch { position: absolute; top: 16px; right: 16px; padding: 6px 14px; font-size: 12px; border-radius: 12px; background: var(--bg); color: var(--text); border: 1px solid var(--border); cursor: pointer; transition: transform .25s ease, box-shadow .25s ease, color .25s ease; z-index: 2; }
+    .lang-switch:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.45); color: var(--accent); }
+
+    .contacts { display: flex; justify-content: center; gap: 32px; margin-top: 18px; }
+    .contact-btn { width: 64px; height: 64px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+    .contact-btn img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+    .contact-btn:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 12px 26px rgba(0,0,0,0.45); background: var(--bg-soft); }
+
+    .lang { display: none; }
+    .lang.active { display: block; }
+
+    footer { border-top: 1px solid var(--border); background: var(--bg-soft); text-align: center; padding: 14px 10px; font-size: 12px; color: var(--text-soft); position: relative; z-index: 5; }
+
+    @media (max-width: 720px) {
+      main { padding: 32px 18px; }
+      .container { gap: 22px; }
+      .section-block { padding: 26px; }
+      h2 { font-size: 22px; }
+      h3 { font-size: 18px; }
+      nav a { font-size: 12px; padding: 8px 6px; }
+      .contacts { gap: 28px; }
+    }
+  </style>
 </head>
-<body>
+<body class="ru">
+<div class="snow" id="snow"></div>
+
 <header>
-  <h1>TPU Project</h1>
-  <nav>
-    <a href="index.html">Главная</a>
-    <a href="privacy.html">Политика</a>
-    <a href="terms.html">Условия</a>
-    <button id="langBtn">RU / EN</button>
-    <button id="themeBtn">🌙</button>
-  </nav>
+  <div class="nav">
+    <h1>TPU Project</h1>
+    <nav>
+      <a href="index.html" class="active" data-ru="Главная" data-en="Home">Главная</a>
+      <a href="privacy.html" data-ru="Политика" data-en="Privacy">Политика</a>
+      <a href="terms.html" data-ru="Условия" data-en="Terms">Условия</a>
+    </nav>
+  </div>
 </header>
 
-<main class="container fade">
-  <!-- Русская версия -->
-  <section class="lang lang-ru">
-    <div class="section-block">
-      <h2>Добро пожаловать</h2>
-      <p>TPU Project — это набор Discord-ботов для автоматизации, модерации и поддержки сообщества. Наши боты помогают администрировать серверы, управлять ролями, устраивать конкурсы и автоматизировать рутинные задачи.</p>
-    </div>
-    <div class="section-block">
-      <h3>О проекте</h3>
-      <p>Проект TPU создан для сообществ, которым нужны умные и простые решения для взаимодействия с участниками. Мы регулярно обновляем функционал, добавляем новые команды и улучшаем интерфейс ботов.</p>
-    </div>
-    <div class="section-block">
-      <h3>Наши контакты</h3>
-      <p>Discord: <a href="https://discord.gg/xbD8KucBGm" target="_blank">Присоединиться</a></p>
-      <p>Telegram: <a href="https://t.me/sharascat_fun_TPU" target="_blank">Перейти</a></p>
-    </div>
-  </section>
+<main>
+  <div class="container">
+    <section class="lang lang-ru active">
+      <div class="section-block">
+        <button class="lang-switch" id="langBtn">RU / EN</button>
+        <h2>Добро пожаловать</h2>
+        <p>TPU Project — это набор Discord-ботов для автоматизации, модерации и поддержки сообщества.</p>
+      </div>
 
-  <!-- Английская версия -->
-  <section class="lang lang-en hidden">
-    <div class="section-block">
-      <h2>Welcome</h2>
-      <p>TPU Project is a set of Discord bots for automation, moderation and community support. Our bots help manage servers, roles, contests, and automate routine tasks.</p>
-    </div>
-    <div class="section-block">
-      <h3>About the project</h3>
-      <p>TPU Project is created for communities that need smart and simple solutions to interact with members. We regularly update functionality, add new commands and improve the bot interface.</p>
-    </div>
-    <div class="section-block">
-      <h3>Contact us</h3>
-      <p>Discord: <a href="https://discord.gg/xbD8KucBGm" target="_blank">Join</a></p>
-      <p>Telegram: <a href="https://t.me/sharascat_fun_TPU" target="_blank">Go</a></p>
-    </div>
-  </section>
+      <div class="section-block">
+        <h3>О проекте</h3>
+        <p>Проект TPU создан для сообществ, которым нужны умные и простые решения для взаимодействия с участниками. Мы регулярно обновляем функционал, добавляем новые команды и улучшаем интерфейс ботов.</p>
+      </div>
+
+      <div class="section-block">
+        <h3>Контакты</h3>
+        <div class="contacts">
+          <a class="contact-btn" href="https://discord.gg/xbD8KucBGm" target="_blank"><img src="discord-color.png" alt="Discord"></a>
+          <a class="contact-btn" href="https://t.me/sharascat_fun_TPU" target="_blank"><img src="telegram-color.png" alt="Telegram"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="lang lang-en">
+      <div class="section-block">
+        <button class="lang-switch" id="langBtn2">RU / EN</button>
+        <h2>Welcome</h2>
+        <p>TPU Project is a set of Discord bots for automation, moderation and community support.</p>
+      </div>
+
+      <div class="section-block">
+        <h3>About the project</h3>
+        <p>TPU Project is created for communities that need smart and simple solutions to interact with members. We regularly update functionality, add new commands and improve the bot interface.</p>
+      </div>
+
+      <div class="section-block">
+        <h3>Contacts</h3>
+        <div class="contacts">
+          <a class="contact-btn" href="https://discord.gg/xbD8KucBGm" target="_blank"><img src="discord-color.png" alt="Discord"></a>
+          <a class="contact-btn" href="https://t.me/sharascat_fun_TPU" target="_blank"><img src="telegram-color.png" alt="Telegram"></a>
+        </div>
+      </div>
+    </section>
+  </div>
 </main>
 
-<script src="script.js"></script>
+<footer>TPU project 2024–2025©</footer>
+
+<script>
+const snow = document.getElementById('snow');
+for (let i=0;i<60;i++){
+  const s=document.createElement('span');
+  s.style.left=Math.random()*100+'vw';
+  s.style.animationDuration=10+Math.random()*14+'s';
+  s.style.animationDelay=Math.random()*10+'s';
+  snow.appendChild(s);
+}
+
+const btn1=document.getElementById('langBtn');
+const btn2=document.getElementById('langBtn2');
+const ru=document.querySelector('.lang-ru');
+const en=document.querySelector('.lang-en');
+const navLinks=document.querySelectorAll('nav a');
+
+function toggleLang(){
+  ru.classList.toggle('active');
+  en.classList.toggle('active');
+  document.body.classList.toggle('ru');
+  navLinks.forEach(link=>{
+    link.textContent=ru.classList.contains('active')?link.dataset.ru:link.dataset.en;
+  });
+}
+
+btn1.onclick=toggleLang;
+btn2.onclick=toggleLang;
+</script>
 </body>
-  </html>
-  
+            </html>
+            
